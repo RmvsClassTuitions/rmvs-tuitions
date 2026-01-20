@@ -1,22 +1,42 @@
 [
-  { "id": 1, "question": "Which of the following is the scientific name of the plant selected by Mendel?", "options": ["Pisum sativum", "Oryza sativa", "Hibiscus rosa-sinensis", "Mangifera indica"], "answer": "Pisum sativum", "explanation": "Mendel selected the garden pea plant, Pisum sativum." },
-  { "id": 2, "question": "Which of the following statements is true regarding a gene?", "options": ["It is a protein.", "It is a specific segment of DNA.", "It is the entire DNA.", "Structure in animal cells."], "answer": "It is a specific segment of DNA.", "explanation": "A gene is a segment of DNA that codes for a protein." },
-  { "id": 3, "question": "In a Monohybrid cross (TT x tt), what is the F2 phenotypic ratio?", "options": ["1:3", "3:1", "1:2:1", "1:1"], "answer": "3:1", "explanation": "Phenotypic ratio is 3 Tall : 1 Short." },
-  { "id": 4, "question": "Which pair represents a heterozygous individual?", "options": ["TT", "tt", "Tt", "RR"], "answer": "Tt", "explanation": "Tt has two different alleles (Heterozygous)." },
-  { "id": 5, "question": "The genotypic ratio of F2 in a Monohybrid cross is:", "options": ["3:1", "1:1", "1:2:1", "9:3:3:1"], "answer": "1:2:1", "explanation": "Ratio is 1 TT : 2 Tt : 1 tt." },
-  { "id": 6, "question": "A 9:3:3:1 ratio suggests:", "options": ["Monohybrid cross", "Dihybrid cross", "Incomplete dominance", "Single trait"], "answer": "Dihybrid cross", "explanation": "This is the classic F2 ratio for a Dihybrid cross." },
-  { "id": 7, "question": "In humans, sex is determined by:", "options": ["X in ovum", "Y in ovum", "X in sperm", "Specific chromosome (X or Y) in sperm"], "answer": "Specific chromosome (X or Y) in sperm", "explanation": "The father's sperm determines sex (XY=Boy, XX=Girl)." },
-  { "id": 8, "question": "Cross Round Green (RRyy) x Wrinkled Yellow (rrYY). F1 is:", "options": ["Round Yellow", "Round Green", "Wrinkled Yellow", "Wrinkled Green"], "answer": "Round Yellow", "explanation": "F1 is RrYy, which is Round and Yellow (Dominant)." },
-  { "id": 9, "question": "How many pairs of contrasting characters did Mendel study?", "options": ["5", "6", "7", "8"], "answer": "7", "explanation": "Mendel studied 7 contrasting characters." },
-  { "id": 10, "question": "Which is a recessive trait in garden peas?", "options": ["Tall stem", "Round seed", "Wrinkled seed", "Purple flower"], "answer": "Wrinkled seed", "explanation": "Wrinkled is recessive to Round." },
-  { "id": 11, "question": "A woman has only daughters because:", "options": ["No Y chromosomes", "Husband produces X sperm", "Husband produces Y sperm", "Environment"], "answer": "Husband produces X sperm", "explanation": "If the sperm carries X, the child is female." },
-  { "id": 12, "question": "Exchange of genetic material occurs during:", "options": ["Vegetative reproduction", "Asexual reproduction", "Sexual reproduction", "Budding"], "answer": "Sexual reproduction", "explanation": "Crossing over happens in sexual reproduction." },
-  { "id": 13, "question": "Correct pair of sex chromosomes in human female?", "options": ["XY", "XX", "YY", "XO"], "answer": "XX", "explanation": "Females are XX." },
-  { "id": 14, "question": "Two pink flowers crossed result in 1 Red: 2 Pink: 1 White. This is:", "options": ["Double fertilization", "Self-pollination", "Cross-fertilization", "No fertilization"], "answer": "Self-pollination", "explanation": "This indicates incomplete dominance." },
-  { "id": 15, "question": "A zygote with an X from father becomes:", "options": ["Boy", "Girl", "Neutral", "Either"], "answer": "Girl", "explanation": "X (Mom) + X (Dad) = Girl." },
-  { "id": 16, "question": "Where is protein information stored?", "options": ["Cytoplasm", "Mitochondria", "DNA", "Lysosome"], "answer": "DNA", "explanation": "DNA contains the genes for protein synthesis." },
-  { "id": 17, "question": "If genotype is 'Tt', phenotype is:", "options": ["Short", "Medium", "Tall", "Dwarf"], "answer": "Tall", "explanation": "Tall is dominant." },
-  { "id": 18, "question": "Law stating alleles separate during gamete formation:", "options": ["Dominance", "Segregation", "Independent Assortment", "Selection"], "answer": "Segregation", "explanation": "Law of Segregation." },
-  { "id": 19, "question": "Probability of a male child?", "options": ["100%", "75%", "50%", "25%"], "answer": "50%", "explanation": "Always 50/50 chance." },
-  { "id": 20, "question": "Trait expressed only in homozygous condition:", "options": ["Dominant", "Recessive", "Acquired", "Inherited"], "answer": "Recessive", "explanation": "Recessive traits need two copies (tt)." }
+  {
+    "id": 1,
+    "subject": "science",
+    "question": "Which mirror is used by dentists?",
+    "options": ["Concave", "Convex", "Plane", "Cylindrical"],
+    "answer": "Concave",
+    "explanation": "Concave mirrors are used to get a magnified image."
+  },
+  {
+    "id": 2,
+    "subject": "maths",
+    "question": "Distance between (0,0) and (3,4) is:",
+    "options": ["3", "4", "5", "7"],
+    "answer": "5",
+    "explanation": "Using distance formula: √(3²+4²) = √25 = 5."
+  },
+  {
+    "id": 3,
+    "subject": "english",
+    "question": "Lencho wrote a letter to ______.",
+    "options": ["God", "Postmaster", "His friend", "The Mayor"],
+    "answer": "God",
+    "explanation": "Lencho wrote a letter to God asking for 100 pesos."
+  },
+  {
+    "id": 4,
+    "subject": "sst",
+    "question": "Who was the first President of India?",
+    "options": ["Nehru", "Gandhi", "Dr. Rajendra Prasad", "Ambedkar"],
+    "answer": "Dr. Rajendra Prasad",
+    "explanation": "Dr. Rajendra Prasad was the first President."
+  },
+  {
+    "id": 5,
+    "subject": "hindi",
+    "question": "रश्मिरथी के रचयिता कौन हैं?",
+    "options": ["दिनकर", "निराला", "पंत", "प्रसाद"],
+    "answer": "दिनकर",
+    "explanation": "रामधारी सिंह 'दिनकर' ने रश्मिरथी लिखी है।"
+  }
 ]
