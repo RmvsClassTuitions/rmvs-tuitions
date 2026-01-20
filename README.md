@@ -1,6 +1,6 @@
 # RMVS Class Tuitions Website
 
-### 🔗 [Click Here to Visit Live Website](https://yourusername.github.io/rmvs-tuitions/)
+### 🔗 [Click Here to Visit Live Website](https://rmvsclasstuitions.github.io/rmvs-tuitions/)
 
 ---
 
