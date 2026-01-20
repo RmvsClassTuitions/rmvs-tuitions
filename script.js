@@ -1,38 +1,72 @@
+let allQuestions = []; // Store all questions here
+
 async function loadQuiz() {
     try {
         const response = await fetch('questions.json');
-        const questions = await response.json();
-        const quizContainer = document.getElementById('quiz-container');
-        quizContainer.innerHTML = ""; 
+        allQuestions = await response.json();
+        
+        // Load ALL questions by default
+        renderQuiz('all');
 
-        questions.forEach((q, index) => {
-            const imageHTML = q.image ? `<img src="${q.image}" class="quiz-image">` : '';
-            const questionDiv = document.createElement('div');
-            questionDiv.classList.add('question-block');
-            questionDiv.id = `q-block-${index}`;
-            
-            questionDiv.innerHTML = `
-                <h3>${index + 1}. ${q.question}</h3>
-                ${imageHTML}
-                <div class="options">
-                    ${q.options.map(option => `
-                        <label>
-                            <input type="radio" name="question${index}" value="${option}">
-                            ${option}
-                        </label>
-                    `).join('')}
-                </div>
-                <div class="explanation" id="explanation-${index}" style="display:none;">
-                    <strong>Explanation:</strong> ${q.explanation}
-                </div>
-            `;
-            quizContainer.appendChild(questionDiv);
-        });
-
-        document.getElementById('submit-btn').onclick = () => calculateScore(questions);
     } catch (error) {
         document.getElementById('quiz-container').innerHTML = "<p style='color:red'>Error loading questions. Check JSON file.</p>";
     }
+}
+
+function filterSubject(subject) {
+    // 1. Update Buttons Design
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.innerText.toLowerCase() === subject || (subject === 'all' && btn.innerText === 'All')) {
+            btn.classList.add('active');
+        }
+    });
+
+    // 2. Render the chosen subject
+    renderQuiz(subject);
+}
+
+function renderQuiz(subject) {
+    const quizContainer = document.getElementById('quiz-container');
+    quizContainer.innerHTML = ""; 
+
+    // Filter questions based on subject tag
+    const filteredQuestions = subject === 'all' 
+        ? allQuestions 
+        : allQuestions.filter(q => q.subject === subject);
+
+    if(filteredQuestions.length === 0) {
+        quizContainer.innerHTML = "<p style='text-align:center'>No questions available for this subject yet.</p>";
+        document.getElementById('submit-btn').style.display = 'none';
+        return;
+    }
+
+    document.getElementById('submit-btn').style.display = 'block';
+
+    filteredQuestions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question-block');
+        questionDiv.id = `q-block-${index}`;
+        
+        questionDiv.innerHTML = `
+            <h3>${index + 1}. ${q.question}</h3>
+            <div class="options">
+                ${q.options.map(option => `
+                    <label>
+                        <input type="radio" name="question${index}" value="${option}">
+                        ${option}
+                    </label>
+                `).join('')}
+            </div>
+            <div class="explanation" id="explanation-${index}" style="display:none;">
+                <strong>Explanation:</strong> ${q.explanation}
+            </div>
+        `;
+        quizContainer.appendChild(questionDiv);
+    });
+
+    // Update Submit Button Logic for the new filtered list
+    document.getElementById('submit-btn').onclick = () => calculateScore(filteredQuestions);
 }
 
 function calculateScore(questions) {
@@ -46,18 +80,19 @@ function calculateScore(questions) {
         if (selected && selected.value === q.answer) {
             score++;
             block.style.border = "2px solid #00ff00"; 
-            explanationDiv.style.color = "#fff";
+            explanationDiv.style.color = "#0077b6";
         } else {
             block.style.border = "2px solid #ff0055"; 
-            explanationDiv.style.color = "#fff";
+            explanationDiv.style.color = "#d00000";
         }
         document.querySelectorAll(`input[name="question${index}"]`).forEach(i => i.disabled = true);
     });
 
     const resultDiv = document.getElementById('result');
     resultDiv.style.display = 'block';
-    resultDiv.innerHTML = `<h2>Status Report</h2><p style="font-size:1.2rem">Accuracy: <strong>${score} / ${questions.length}</strong></p><button onclick="location.reload()" style="margin-top:10px">Re-Initialize</button>`;
+    resultDiv.innerHTML = `<h2>Status Report</h2><p style="font-size:1.2rem">Score: <strong>${score} / ${questions.length}</strong></p><button onclick="location.reload()" style="margin-top:10px; padding:10px 20px; border:none; background:#333; color:#fff; cursor:pointer; border-radius:5px;">Restart</button>`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('submit-btn').style.display = 'none';
 }
+
 loadQuiz();
