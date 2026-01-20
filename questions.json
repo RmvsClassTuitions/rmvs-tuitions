@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "question": "Which logic gate is known as the 'Universal Gate'?",
+    "options": ["AND", "OR", "NAND", "NOT"],
+    "answer": "NAND",
+    "explanation": "NAND and NOR gates are universal because any other gate can be built using them."
+  },
+  {
+    "id": 2,
+    "question": "What is the unit of Electric Field?",
+    "options": ["N/C", "Joule", "Volt", "Ampere"],
+    "answer": "N/C",
+    "explanation": "Electric Field = Force / Charge."
+  }
+]
