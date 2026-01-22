@@ -15,7 +15,7 @@
     "question": "The kidneys in human beings are a part of the system for:",
     "options": ["Nutrition", "Respiration", "Excretion", "Transportation"],
     "answer": "Excretion",
-    "explanation": "Kidneys filter blood and produce urine (Excretion)."
+    "explanation": "Kidneys filter blood and produce urine."
   },
   {
     "id": 3,
@@ -28,11 +28,65 @@
   },
   {
     "id": 4,
+    "subject": "maths",
+    "chapter": "Trigonometry",
+    "question": "The value of sin 60° cos 30° + sin 30° cos 60° is:",
+    "options": ["0", "1", "2", "1/2"],
+    "answer": "1",
+    "explanation": "Using formula sin(A+B), sin(90) = 1."
+  },
+  {
+    "id": 5,
     "subject": "english",
     "chapter": "Letter to God",
     "question": "Lencho wrote a letter to ______.",
     "options": ["God", "Postmaster", "His friend", "The Mayor"],
     "answer": "God",
     "explanation": "Lencho wrote a letter to God asking for 100 pesos."
+  },
+  {
+    "id": 6,
+    "subject": "english",
+    "chapter": "Tenses",
+    "question": "I ______ (finish) my work just now.",
+    "options": ["have finished", "had finished", "finished", "finishing"],
+    "answer": "have finished",
+    "explanation": "'Just now' indicates Present Perfect Tense."
+  },
+  {
+    "id": 7,
+    "subject": "sst",
+    "chapter": "History",
+    "question": "Who was the first President of India?",
+    "options": ["Nehru", "Gandhi", "Dr. Rajendra Prasad", "Ambedkar"],
+    "answer": "Dr. Rajendra Prasad",
+    "explanation": "Dr. Rajendra Prasad was the first President."
+  },
+  {
+    "id": 8,
+    "subject": "sst",
+    "chapter": "Geography",
+    "question": "Which soil is best for cotton cultivation?",
+    "options": ["Red Soil", "Black Soil", "Alluvial Soil", "Laterite Soil"],
+    "answer": "Black Soil",
+    "explanation": "Black soil is also known as Regur soil and is ideal for cotton."
+  },
+  {
+    "id": 9,
+    "subject": "hindi",
+    "chapter": "Poetry",
+    "question": "रश्मिरथी के रचयिता कौन हैं?",
+    "options": ["दिनकर", "निराला", "पंत", "प्रसाद"],
+    "answer": "दिनकर",
+    "explanation": "रामधारी सिंह 'दिनकर' ने रश्मिरथी लिखी है।"
+  },
+  {
+    "id": 10,
+    "subject": "hindi",
+    "chapter": "Grammar",
+    "question": "‘कमल’ का पर्यायवाची शब्द है:",
+    "options": ["पंकज", "जलद", "दिनकर", "अनिल"],
+    "answer": "पंकज",
+    "explanation": "पंकज का अर्थ है कीचड़ में जन्म लेने वाला (कमल)।"
   }
 ]
