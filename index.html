@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMVS Classes | Daily Quiz</title>
+    <title>RMVS Classes | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #4361ee; --secondary: #3f37c9; --accent: #f72585; --success: #4cc9f0; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-dark: #2b2d42; }
+        :root { --primary: #4361ee; --secondary: #3f37c9; --accent: #f72585; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-dark: #2b2d42; }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Poppins', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
 
         nav { background: var(--card-bg); width: 100%; padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 15px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
@@ -17,29 +17,41 @@
         .container { margin-top: 30px; max-width: 700px; width: 90%; background: var(--card-bg); border-radius: 20px; padding: 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); border: 1px solid #eee; }
         h1 { text-align: center; color: var(--primary); font-weight: 700; margin-bottom: 20px; font-size: 1.8rem; }
 
-        /* TABS */
+        /* QUIZ STYLES */
         .tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
         .tab-btn { background: #e9ecef; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-family: 'Poppins'; font-weight: 600; transition: 0.3s; color: #555; font-size: 0.95rem; }
-        .tab-btn:hover, .tab-btn.active { background: var(--primary); color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3); }
-
-        .question-block { background: #fff; border: 1px solid #e9ecef; border-left: 5px solid var(--accent); margin-bottom: 25px; padding: 25px; border-radius: 12px; transition: transform 0.2s; }
-        .question-block:hover { transform: translateY(-3px); }
+        .tab-btn:hover, .tab-btn.active { background: var(--primary); color: #fff; transform: translateY(-2px); }
+        .question-block { background: #fff; border: 1px solid #e9ecef; border-left: 5px solid var(--accent); margin-bottom: 25px; padding: 25px; border-radius: 12px; }
         .options label { display: block; padding: 12px 15px; margin: 10px 0; background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 10px; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .options label:hover { border-color: var(--primary); background: #eef2ff; }
         input[type="radio"] { margin-right: 10px; accent-color: var(--primary); }
-        
         button#submit-btn { display: block; width: 100%; padding: 18px; font-family: 'Poppins'; font-size: 1.1rem; color: #fff; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .explanation { background: #e0fbfc; border-left: 4px solid #4cc9f0; color: #0077b6; padding: 15px; border-radius: 8px; margin-top: 15px; display: none; }
+        #result { text-align: center; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); margin-top: 20px; display: none; border: 2px solid #4cc9f0; }
+
+        /* --- NEW LOCATION & SOCIAL SECTION --- */
+        .info-section { width: 90%; max-width: 800px; margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
-        .explanation { background: #e0fbfc; border-left: 4px solid var(--success); color: #0077b6; padding: 15px; border-radius: 8px; margin-top: 15px; display: none; }
-        #result { text-align: center; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); margin-top: 20px; display: none; border: 2px solid var(--success); }
+        .location-card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .center-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .map-frame { width: 100%; height: 250px; border: 0; border-radius: 10px; }
+
+        .social-hub { display: flex; flex-direction: column; gap: 15px; }
+        .social-card { padding: 20px; border-radius: 15px; color: white; display: flex; align-items: center; text-decoration: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .social-card:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .social-card i { font-size: 2rem; margin-right: 15px; }
         
+        /* Responsive: Stack columns on mobile */
+        @media (max-width: 768px) { .info-section { grid-template-columns: 1fr; } }
+
+        /* Footer & Ads */
+        .ad-space { width: 90%; max-width: 700px; height: 100px; background: #eee; display: flex; align-items: center; justify-content: center; color: #aaa; margin: 20px 0; border-radius: 10px; }
         .brand-footer { margin-top: 60px; padding: 40px; background: #fff; text-align: center; width: 100%; border-top: 1px solid #eee; color: #6c757d; }
+        
+        /* Live Counter & WhatsApp */
         #live-counter-bar { position: fixed; bottom: 20px; left: 20px; background: #fff; padding: 8px 15px; border-radius: 30px; font-size: 0.85rem; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: flex; align-items: center; z-index: 999; border: 1px solid #eee; }
         .pulse-dot { height: 10px; width: 10px; background-color: #2ec4b6; border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
-        #fomo-popup { position: fixed; bottom: 80px; left: 20px; background: #fff; border-left: 5px solid var(--primary); padding: 15px; border-radius: 12px; display: flex; align-items: center; width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000; transform: translateX(-150%); transition: transform 0.5s; }
-        #fomo-popup.show { transform: translateX(0); }
         .float-whatsapp { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .ad-space { width: 90%; max-width: 700px; height: 100px; background: #eee; display: flex; align-items: center; justify-content: center; color: #aaa; margin: 20px 0; border-radius: 10px; }
         @keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.7);} 70% {box-shadow: 0 0 0 10px rgba(46, 196, 182, 0);} 100% {box-shadow: 0 0 0 0 rgba(46, 196, 182, 0);} }
     </style>
 </head>
@@ -53,16 +65,9 @@
     </nav>
 
     <div class="ad-space">
-       <script>
-  atOptions = {
-    'key' : '62522c6545544523107963ff5f44c86b',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/62522c6545544523107963ff5f44c86b/invoke.js"></script>
+        <script type="text/javascript">
+            atOptions = { 'key' : 'YOUR_AD_KEY', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
     </div>
 
     <div class="container">
@@ -81,26 +86,66 @@
         <div id="result"></div>
     </div>
 
+    <div class="info-section">
+        
+        <div class="location-card">
+            <h3 style="margin-top:0; color:var(--primary);">📍 Visit Our Center</h3>
+            
+            <img src="https://placehold.co/600x400?text=RMVS+Center+Photo" class="center-img" alt="Coaching Center">
+            
+            <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5644.022998634861!2d80.7777!3d27.9492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDU2JzU3LjEiTiA4MMKwNDYnNDAuMCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            <p style="font-size:0.8rem; color:#666; margin-top:10px;"><i class="fas fa-map-pin"></i> Near Civil Lines, Lakhimpur Kheri, UP</p>
+        </div>
+
+        <div class="social-hub">
+            <h3 style="margin-top:0; color:var(--primary);">📢 Social Updates</h3>
+            
+            <a href="https://www.quora.com/profile/YOUR_QUORA_ID" target="_blank" class="social-card" style="background: #b92b27;">
+                <i class="fab fa-quora"></i>
+                <div>
+                    <div style="font-weight:bold;">Read my Answers</div>
+                    <div style="font-size:0.8rem; opacity:0.9;">Expert doubts solved on Quora</div>
+                </div>
+            </a>
+
+            <a href="https://facebook.com/YOUR_FB_ID" target="_blank" class="social-card" style="background: #1877F2;">
+                <i class="fab fa-facebook-f"></i>
+                <div>
+                    <div style="font-weight:bold;">Join FB Group</div>
+                    <div style="font-size:0.8rem; opacity:0.9;">Daily Exam Updates & News</div>
+                </div>
+            </a>
+
+            <a href="https://instagram.com/YOUR_INSTA_ID" target="_blank" class="social-card" style="background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
+                <i class="fab fa-instagram"></i>
+                <div>
+                    <div style="font-weight:bold;">Follow on Insta</div>
+                    <div style="font-size:0.8rem; opacity:0.9;">Reels, Tricks & Motivational Clips</div>
+                </div>
+            </a>
+
+            <a href="https://youtube.com/YOUR_CHANNEL" target="_blank" class="social-card" style="background: #FF0000;">
+                <i class="fab fa-youtube"></i>
+                <div>
+                    <div style="font-weight:bold;">Subscribe Channel</div>
+                    <div style="font-size:0.8rem; opacity:0.9;">Free Video Lectures</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <div class="ad-space">
-        <script src="https://pl28538303.effectivegatecpm.com/03/e8/94/03e8947df196ea14c7a141d2d2971447.js"></script>
+        <script type="text/javascript">
+            atOptions = { 'key' : 'YOUR_AD_KEY', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
     </div>
 
-    <div id="live-counter-bar">
-        <span class="pulse-dot"></span>
-        <span style="font-weight:600; color:#333;">Live Students: </span>
-        <span id="visitor-count" style="margin-left:5px; color:var(--primary); font-weight:700;">1,240</span>
-    </div>
-
-    <div id="fomo-popup"><div id="fomo-image"></div><div style="line-height:1.2"><span id="fomo-name" style="font-weight:700; font-size:0.9rem; color:#333;"></span><br><span id="fomo-action" style="font-size:0.8rem; color:#666;"></span></div></div>
+    <div id="live-counter-bar"><span class="pulse-dot"></span><span style="font-weight:600; color:#333;">Live: </span><span id="visitor-count" style="margin-left:5px; color:var(--primary); font-weight:700;">1,240</span></div>
     
     <a href="https://wa.me/919876543210" class="float-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <footer class="brand-footer">
         <h2 style="color:var(--primary); margin:0;">RMVS Class Tuitions</h2>
-        <div style="margin-top:20px;">
-            <a href="#" style="color:#E1306C; font-size:1.5rem; margin:0 10px;"><i class="fab fa-instagram"></i></a>
-            <a href="#" style="color:#FF0000; font-size:1.5rem; margin:0 10px;"><i class="fab fa-youtube"></i></a>
-        </div>
         <p style="font-size:0.8rem; margin-top:20px;">&copy; 2026 RMVS Tuitions.</p>
     </footer>
 
@@ -111,20 +156,6 @@
         document.getElementById('visitor-count').innerText = count.toLocaleString();
         localStorage.setItem('rmvs_cnt', count);
         setInterval(() => { count++; document.getElementById('visitor-count').innerText = count.toLocaleString(); }, 15000);
-
-        const names = ["Aman","Priya","Rahul","Sneha","Arif","Kavita","Arjun","Simran"];
-        const locs = ["Civil Lines","Gola Road","Naurangabad","Rajgarh","Melani"];
-        const acts = [{t:"started Science Quiz",i:"fas fa-flask",c:"#4361ee"},{t:"is solving Maths",i:"fas fa-calculator",c:"#2ec4b6"},{t:"bought Notes",i:"fas fa-book",c:"#f72585"}];
-
-        function showPopup(){
-            const rN=names[Math.floor(Math.random()*names.length)], rL=locs[Math.floor(Math.random()*locs.length)], rA=acts[Math.floor(Math.random()*acts.length)];
-            document.getElementById('fomo-name').innerText = `${rN} (${rL})`;
-            document.getElementById('fomo-action').innerText = rA.t;
-            document.getElementById('fomo-image').innerHTML = `<i class="${rA.i}" style="color:${rA.c}; font-size:1.5rem; margin-right:15px;"></i>`;
-            document.getElementById('fomo-popup').classList.add('show');
-            setTimeout(()=>document.getElementById('fomo-popup').classList.remove('show'), 4000);
-        }
-        setTimeout(()=>{ showPopup(); setInterval(showPopup, 8000); }, 3000);
     </script>
 </body>
 </html>
