@@ -3,81 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMVS Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>RMVS Premium Store 🛍️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #4361ee; --secondary: #3f37c9; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-dark: #2b2d42; --shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Poppins', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        :root { --primary: #4361ee; --accent: #ff006e; --bg: #f8f9fa; --green: #25D366; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 0; padding-bottom: 100px; /* Space for cart */ }
         
-        nav { background: var(--card-bg); width: 100%; padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 15px; position: sticky; top: 0; z-index: 100; }
-        nav a { color: var(--text-dark); text-decoration: none; font-weight: 600; padding: 8px 18px; border-radius: 50px; transition: 0.3s; font-size: 0.9rem; background: #f1f3f5; }
-        nav a:hover, nav a.active { background: var(--primary); color: #fff; transform: translateY(-2px); }
+        /* NAV */
+        nav { background: white; padding: 15px 0; display: flex; justify-content: center; gap: 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        nav a { color: #333; text-decoration: none; font-weight: 600; padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover, nav a.active { background: var(--primary); color: white; }
 
-        h1 { color: var(--primary); margin-top: 40px; font-weight: 700; }
+        /* HERO OFFER */
+        .offer-banner { background: linear-gradient(135deg, #2b2d42, #1a1b2e); color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 30px 30px; }
+        .timer { font-size: 1.5rem; font-weight: 800; color: #ff006e; margin-top: 5px; background: rgba(255,255,255,0.1); display: inline-block; padding: 5px 15px; border-radius: 10px; }
 
-        .product-card {
-            background: #fff; border-radius: 15px; padding: 25px; margin: 15px 0; max-width: 600px; width: 90%;
-            display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); border: 1px solid #f1f3f5; transition: 0.3s;
-        }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
-        .product-card h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #333; }
-        .product-card p { margin: 0; color: #666; font-size: 0.9rem; }
-
-        .price-container { text-align: right; }
-        .original-price { color: #aaa; text-decoration: line-through; font-size: 0.9rem; margin-right: 5px; }
-        .current-price { color: var(--primary); font-size: 1.4rem; font-weight: 700; }
+        /* GRID */
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        button.buy-btn { background: var(--primary); color: #fff; border: none; padding: 10px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 8px; font-family: 'Poppins'; transition: 0.2s; }
-        button.buy-btn:hover { background: var(--secondary); transform: scale(1.05); }
-        .discount-badge { background: #ef233c; color: white; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; vertical-align: middle; margin-left: 5px; }
-
-        #payment-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 200; }
-        .modal-content { background: #fff; padding: 40px; text-align: center; border-radius: 20px; max-width: 400px; width: 85%; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        /* PRODUCT CARD */
+        .product { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; position: relative; border: 1px solid #eee; }
+        .product:hover { transform: translateY(-5px); }
+        .badge { position: absolute; top: 15px; left: 15px; padding: 5px 10px; font-weight: 800; font-size: 0.75rem; border-radius: 5px; color:white; z-index: 10; }
+        .p-img-box { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: #f4f4f4; }
+        .p-details { padding: 20px; }
+        .p-title { font-weight: 800; font-size: 1.1rem; color: #333; }
+        .p-desc { color: #666; font-size: 0.85rem; margin-bottom: 15px; min-height: 40px; }
         
-        .float-whatsapp { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-top: 10px; border-top: 1px dashed #eee; }
+        .old-price { text-decoration: line-through; color: #aaa; font-size: 0.9rem; }
+        .new-price { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
+        
+        .add-btn { width: 100%; background: white; color: var(--primary); border: 2px solid var(--primary); padding: 10px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .add-btn:hover { background: var(--primary); color: white; }
+        .add-btn.added { background: var(--green); color: white; border-color: var(--green); pointer-events: none; }
+
+        /* --- FLOATING CART BAR (The E-Commerce Magic) --- */
+        #cart-bar { position: fixed; bottom: 20px; left: 5%; width: 90%; background: #222; color: white; padding: 15px 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 999; transform: translateY(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-sizing: border-box; }
+        #cart-bar.visible { transform: translateY(0); }
+        
+        .cart-info span { display: block; }
+        .cart-total { font-size: 1.2rem; font-weight: 800; color: #FFD700; }
+        .cart-savings { font-size: 0.75rem; color: #25D366; }
+        
+        .checkout-btn { background: var(--green); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; animation: pulse 2s infinite; }
+        
+        /* CART MODAL (Popup) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .modal { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 20px; position: relative; animation: slideUp 0.3s; }
+        .bill-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #555; }
+        .bill-total { border-top: 2px dashed #ddd; margin-top: 15px; padding-top: 15px; font-weight: 800; font-size: 1.2rem; color: #333; display: flex; justify-content: space-between; }
+        .final-btn { width: 100%; background: var(--green); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
-<nav>
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="quiz.html"><i class="fas fa-edit"></i> Quiz</a>
-    <a href="store.html"><i class="fas fa-shopping-bag"></i> Store</a>
-    <a href="notes.html"><i class="fas fa-book"></i> Notes</a>
-    <a href="about.html"><i class="fas fa-user"></i> About</a>
-</nav> 
-    <h1>Study Material Store</h1>
-    <div class="product-card">
-        <div><h3>Physics Formula Sheet <span class="discount-badge">HOT</span></h3><p>Complete Class 12 Formulas (PDF)</p></div>
-        <div class="price-container"><div><span class="original-price">₹99</span><span class="current-price">₹29</span></div><button class="buy-btn" onclick="openPayment('Physics Sheet', 29)">Buy Now</button></div>
+
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="quiz.html"><i class="fas fa-edit"></i> Quiz</a>
+        <a href="store.html" class="active"><i class="fas fa-shopping-bag"></i> Store</a>
+        <a href="notes.html"><i class="fas fa-book"></i> Notes</a>
+    </nav>
+
+    <div class="offer-banner">
+        <h1>⚡ Power Packs</h1>
+        <p>Bundle & Save 80% Today!</p>
+        <div class="timer" id="countdown">04h 23m 15s</div>
     </div>
-    <div class="product-card">
-        <div><h3>PCM Complete Bundle</h3><p>Physics + Chemistry + Maths Notes</p></div>
-        <div class="price-container"><div><span class="original-price">₹499</span><span class="current-price">₹99</span></div><button class="buy-btn" onclick="openPayment('PCM Bundle', 99)">Buy Now</button></div>
-    </div>
-    <div id="payment-modal">
-        <div class="modal-content">
-            <h2 style="color:var(--primary)">Confirm Order</h2>
-            <p style="color:#666;">Scan via Paytm / PhonePe / GPay</p>
-            <img id="qr-code-img" src="" width="200" height="200" style="border:10px solid #f8f9fa; border-radius:10px; margin:10px 0;">
-            <p id="pay-amount" style="font-weight:bold; font-size:1.2rem; margin:10px 0;"></p>
-            <button class="buy-btn" style="background:#25D366; width:100%; padding:15px;" onclick="openWhatsApp()">Step 2: Send Screenshot</button>
-            <button onclick="document.getElementById('payment-modal').style.display='none'" style="background:transparent; color:#999; border:none; margin-top:15px; cursor:pointer;">Cancel</button>
+
+    <div class="container">
+        <div style="width:100%; height:90px; background:#eee; margin:20px 0; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+             <script type="text/javascript">
+                atOptions = { 'key' : 'YOUR_AD_KEY', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+            </script>
+        </div>
+
+        <div class="grid">
+            <div class="product">
+                <div class="badge" style="background:#FFD700; color:black;">BEST SELLER</div>
+                <div class="p-img-box" style="background:#e0fbfc;"><i class="fas fa-graduation-cap" style="color:#4361ee"></i></div>
+                <div class="p-details">
+                    <div class="p-title">Class 10 Brahmaastra Kit</div>
+                    <div class="p-desc">Science Mind Maps + Maths Formulas + 500 IMP Questions.</div>
+                    <div class="price-row">
+                        <span class="old-price">₹499</span>
+                        <span class="new-price">₹99</span>
+                    </div>
+                    <button class="add-btn" onclick="addToCart(this, 'Brahmaastra Kit', 99, 499)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="badge" style="background:#ff006e;">VISUAL</div>
+                <div class="p-img-box" style="background:#fff0f3;"><i class="fas fa-brain" style="color:#ff006e"></i></div>
+                <div class="p-details">
+                    <div class="p-title">Science Mind Maps</div>
+                    <div class="p-desc">15 Colorful Charts for instant revision of all chapters.</div>
+                    <div class="price-row">
+                        <span class="old-price">₹199</span>
+                        <span class="new-price">₹49</span>
+                    </div>
+                    <button class="add-btn" onclick="addToCart(this, 'Science Mind Maps', 49, 199)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="badge" style="background:#25D366;">QUICK</div>
+                <div class="p-img-box" style="background:#f0fff4;"><i class="fas fa-scroll" style="color:#25D366"></i></div>
+                <div class="p-details">
+                    <div class="p-title">Maths Formula Sheet</div>
+                    <div class="p-desc">All Class 10 formulas on 4 printable pages.</div>
+                    <div class="price-row">
+                        <span class="old-price">₹99</span>
+                        <span class="new-price">₹29</span>
+                    </div>
+                    <button class="add-btn" onclick="addToCart(this, 'Maths Formula Sheet', 29, 99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="badge" style="background:#f57c00;">BOARD IMP</div>
+                <div class="p-img-box" style="background:#fff3e0;"><i class="fas fa-globe-asia" style="color:#f57c00"></i></div>
+                <div class="p-details">
+                    <div class="p-title">SST Question Bank</div>
+                    <div class="p-desc">Top 100 Most Repeated Board Questions with Answers.</div>
+                    <div class="price-row">
+                        <span class="old-price">₹149</span>
+                        <span class="new-price">₹59</span>
+                    </div>
+                    <button class="add-btn" onclick="addToCart(this, 'SST Question Bank', 59, 149)">Add to Cart</button>
+                </div>
+            </div>
         </div>
     </div>
-    <a href="https://wa.me/919876543210" class="float-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="cart-bar">
+        <div class="cart-info">
+            <span id="cart-count" style="font-size:0.9rem; color:#ccc;">0 Items Added</span>
+            <span id="cart-total-display" class="cart-total">₹0</span>
+            <span id="cart-savings-display" class="cart-savings">You Save ₹0!</span>
+        </div>
+        <button class="checkout-btn" onclick="openBill()">
+            View Bill <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="modal-overlay" id="bill-modal">
+        <div class="modal">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h2 style="margin:0;">🧾 Order Summary</h2>
+                <i class="fas fa-times" style="font-size:1.5rem; cursor:pointer;" onclick="closeBill()"></i>
+            </div>
+            
+            <div id="bill-items">
+                </div>
+
+            <div style="border-top:1px solid #eee; margin:15px 0;"></div>
+
+            <div class="bill-row">
+                <span>Total MRP:</span>
+                <span id="bill-mrp" style="text-decoration:line-through; color:#999;">₹0</span>
+            </div>
+            <div class="bill-row">
+                <span>Total Discount:</span>
+                <span id="bill-discount" style="color:green;">- ₹0</span>
+            </div>
+            <div class="bill-total">
+                <span>Final Price:</span>
+                <span id="bill-final" style="color:var(--primary);">₹0</span>
+            </div>
+
+            <button class="final-btn" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Pay ₹<span id="pay-btn-amt">0</span> Now
+            </button>
+            <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:10px;">Secure Payment via Rajeev Sir's UPI</p>
+        </div>
+    </div>
+
     <script>
-        const upiID = "yourname@oksbi"; 
-        const myWhatsApp = "919876543210"; 
-        let currentProduct = "";
-        function openPayment(productName, amount) {
-            currentProduct = productName;
-            const upiLink = `upi://pay?pa=${upiID}&pn=RMVS_Classes&am=${amount}&tn=${productName}`;
-            document.getElementById('qr-code-img').src = `https://quickchart.io/qr?text=${encodeURIComponent(upiLink)}&size=300`;
-            document.getElementById('pay-amount').innerText = `Pay: ₹${amount}`;
-            document.getElementById('payment-modal').style.display = 'flex';
+        // CART LOGIC
+        let cart = [];
+        let totalMRP = 0;
+        let totalSell = 0;
+
+        function addToCart(btn, name, price, mrp) {
+            // Visual Feedback
+            btn.innerHTML = 'Added <i class="fas fa-check"></i>';
+            btn.classList.add('added');
+
+            // Logic
+            cart.push({ name: name, price: price, mrp: mrp });
+            totalMRP += mrp;
+            totalSell += price;
+
+            updateCartUI();
         }
-        function openWhatsApp() { window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent("I paid for " + currentProduct + ". Here is the screenshot.")}`, '_blank'); }
+
+        function updateCartUI() {
+            // Update Bar
+            document.getElementById('cart-count').innerText = `${cart.length} Items Added`;
+            document.getElementById('cart-total-display').innerText = `₹${totalSell}`;
+            document.getElementById('cart-savings-display').innerText = `You Save ₹${totalMRP - totalSell}!`;
+
+            // Show Bar
+            document.getElementById('cart-bar').classList.add('visible');
+        }
+
+        function openBill() {
+            const list = document.getElementById('bill-items');
+            list.innerHTML = ''; // Clear old list
+            
+            cart.forEach(item => {
+                list.innerHTML += `
+                <div class="bill-row">
+                    <span>${item.name}</span>
+                    <span style="font-weight:bold;">₹${item.price}</span>
+                </div>`;
+            });
+
+            document.getElementById('bill-mrp').innerText = `₹${totalMRP}`;
+            document.getElementById('bill-discount').innerText = `- ₹${totalMRP - totalSell}`;
+            document.getElementById('bill-final').innerText = `₹${totalSell}`;
+            document.getElementById('pay-btn-amt').innerText = totalSell;
+
+            document.getElementById('bill-modal').style.display = 'flex';
+        }
+
+        function closeBill() {
+            document.getElementById('bill-modal').style.display = 'none';
+        }
+
+        function checkoutWhatsApp() {
+            let itemNames = cart.map(i => i.name).join(' + ');
+            
+            // Professional Message Generation
+            const msg = `Namaste Rajeev Sir! 🙏\nI want to buy these items:\n\n🛍️ *${itemNames}*\n\n💰 Total Amount: ₹${totalSell} (Saved ₹${totalMRP - totalSell})\n\nPlease send UPI QR Code.`;
+            
+            window.open(`https://wa.me/919506760791?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Timer Logic
+        window.onload = function () {
+            var timer = 15000; // 4 hours in seconds roughly
+            setInterval(function () {
+                var d = new Date();
+                var h = 23 - d.getHours();
+                var m = 59 - d.getMinutes();
+                var s = 59 - d.getSeconds();
+                document.getElementById('countdown').textContent = h + "h " + m + "m " + s + "s";
+            }, 1000);
+        };
     </script>
 </body>
 </html>
