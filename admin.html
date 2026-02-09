@@ -3,60 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMVS Admin Panel</title>
+    <title>Bilingual Question Generator 🇮🇳</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f4f4f4; }
-        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button { background: #4361ee; color: white; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; }
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f0f8ff; }
+        .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #4361ee; }
+        h2 { text-align: center; color: #4361ee; margin-top: 0; }
+        
+        label { font-weight: bold; display: block; margin-top: 10px; color: #333; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
+        
+        /* Hindi specific styling input */
+        .hindi-input { border-left: 4px solid #ff9f00; background: #fffbf2; }
+
+        button { background: #4361ee; color: white; border: none; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 8px; width: 100%; margin-top: 15px; font-size: 1rem; }
         button:hover { background: #3f37c9; }
-        pre { background: #222; color: #0f0; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; }
+        
+        pre { background: #222; color: #0f0; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; font-size: 0.9rem; }
         .copy-btn { background: #25D366; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 style="text-align:center; color:#4361ee;">Question Generator 🛠️</h2>
+        <h2>🇮🇳 Bilingual Generator</h2>
         
         <label>Subject:</label>
         <select id="sub">
             <option value="science">Science</option>
             <option value="maths">Maths</option>
-            <option value="english">English</option>
             <option value="sst">SST</option>
             <option value="hindi">Hindi</option>
+            <option value="english">English</option>
         </select>
 
-        <label>Chapter Name:</label>
-        <input type="text" id="chap" placeholder="e.g. Light">
+        <label>Chapter:</label>
+        <input type="text" id="chap" placeholder="e.g. Light / प्रकाश">
 
-        <label>Question:</label>
-        <textarea id="ques" rows="2" placeholder="Type question here..."></textarea>
+        <label>Question (English):</label>
+        <textarea id="q_eng" rows="2" placeholder="e.g. What is the unit of Current?"></textarea>
+
+        <label>Question (Hindi):</label>
+        <textarea id="q_hin" rows="2" class="hindi-input" placeholder="e.g. विद्युत धारा का मात्रक क्या है?"></textarea>
+
+        <hr>
 
         <label>Option A:</label> <input type="text" id="op1">
         <label>Option B:</label> <input type="text" id="op2">
         <label>Option C:</label> <input type="text" id="op3">
         <label>Option D:</label> <input type="text" id="op4">
 
-        <label>Correct Answer (Copy exact text from above):</label>
+        <label>Correct Answer (Copy exact Option text):</label>
         <input type="text" id="ans">
 
-        <label>Explanation:</label>
-        <input type="text" id="exp" placeholder="Why is this correct?">
+        <label>Explanation (Optional):</label>
+        <input type="text" id="exp" placeholder="Short reason...">
 
-        <button onclick="generateCode()">Generate Code</button>
+        <button onclick="generateCode()">✨ Generate Bilingual Code</button>
 
-        <h3>Result (Copy This):</h3>
+        <h3>Result (Copy & Paste to questions.json):</h3>
         <pre id="output">Code will appear here...</pre>
         <button class="copy-btn" onclick="copyText()">Copy to Clipboard</button>
     </div>
 
     <script>
         function generateCode() {
-            const id = Math.floor(Math.random() * 10000); // Random ID to avoid duplicates
+            const id = Math.floor(Math.random() * 100000); 
             const s = document.getElementById('sub').value;
             const c = document.getElementById('chap').value;
-            const q = document.getElementById('ques').value;
+            
+            const qE = document.getElementById('q_eng').value;
+            const qH = document.getElementById('q_hin').value;
+            
+            // The Magic: Combining English <br> Hindi
+            // We wrap Hindi in a span to make it look slightly different if needed
+            const combinedQ = `${qE} <br> <span style='color:#e65100; font-size:0.9em;'>${qH}</span>`;
+
             const o1 = document.getElementById('op1').value;
             const o2 = document.getElementById('op2').value;
             const o3 = document.getElementById('op3').value;
@@ -64,8 +84,17 @@
             const a = document.getElementById('ans').value;
             const e = document.getElementById('exp').value;
 
+            // Generating the JSON
             const json = `,
-  { "id": ${id}, "subject": "${s}", "chapter": "${c}", "question": "${q}", "options": ["${o1}", "${o2}", "${o3}", "${o4}"], "answer": "${a}", "explanation": "${e}" }`;
+  { 
+    "id": ${id}, 
+    "subject": "${s}", 
+    "chapter": "${c}", 
+    "question": "${combinedQ}", 
+    "options": ["${o1}", "${o2}", "${o3}", "${o4}"], 
+    "answer": "${a}", 
+    "explanation": "${e}" 
+  }`;
 
             document.getElementById('output').textContent = json;
         }
@@ -73,7 +102,7 @@
         function copyText() {
             const text = document.getElementById('output').textContent;
             navigator.clipboard.writeText(text);
-            alert("Code Copied! Now paste it at the bottom of questions.json");
+            alert("Code Copied! Paste it into questions.json");
         }
     </script>
 </body>
